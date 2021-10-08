@@ -69,8 +69,8 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "uxterm", NULL };
 
 //Audio Control
-static const char *volup[] = { "pactl", "set-sink-volume", "0", "+5%",    NULL };
-static const char *voldown[] = { "pactl", "set-sink-volume", "0", "-5%",    NULL };
+static const char *volup[] = { "pactl", "set-sink-volume", "0", "+1%",    NULL };
+static const char *voldown[] = { "pactl", "set-sink-volume", "0", "-1%",    NULL };
 static const char *volmute[] = { "pactl", "set-sink-mute",   "0", "toggle", NULL };
 /*
  * static const char *volup[] = { "amixer", "sset", "'master'", "1dB+", NULL};

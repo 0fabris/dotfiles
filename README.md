@@ -9,3 +9,5 @@ Repo containing configurations for
 ## Useful Commands
 ### Screen brightness management (using Light)
 `sudo usermod -a -G video $USER`
+---
+Latest Update: 08/10/21

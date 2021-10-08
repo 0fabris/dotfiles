@@ -1,0 +1,3 @@
+xterm*background: #202020
+xterm*foreground: #c6c6c6
+xterm*faceName: Terminus:style=Bold:size=18

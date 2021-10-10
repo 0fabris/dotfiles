@@ -65,7 +65,8 @@ static const char unknown_str[] = "n/a";
  */
 static const struct arg args[] = {
 	/* function format          argument */
-	{ vol_perc, "[vol=%s]", "/dev/mixer"},
+
+	{ run_command, "[vol=%s]", "amixer get Master | awk -F'[][]' 'END{ print $4\":\"$2 }'"},
 	{ keymap, "[kb=%s]", NULL},
 	{ wifi_essid, "[net=%s@", "wlp3s0"},
 	{ wifi_perc, "%s%%]", "wlp3s0"},

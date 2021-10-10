@@ -53,12 +53,14 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 //Custom Keys
-#define XK_VolDown 0x1008ff11
-#define XK_VolMute 0x1008ff12
-#define XK_VolUp 0x1008ff13
-#define XK_Launch 0x1008ff41
-#define XK_BrightUp 0x1008ff02
-#define XK_BrightDn 0x1008ff03
+#define XK_VolDown 	0x1008ff11
+#define XK_VolMute 	0x1008ff12
+#define XK_VolUp 	0x1008ff13
+#define XK_MicMute 	0x1008ffb2
+#define XK_Launch 	0x1008ff41
+#define XK_BrightUp 	0x1008ff02
+#define XK_BrightDn 	0x1008ff03
+#define XK_Print	0xff61
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -72,6 +74,7 @@ static const char *termcmd[]  = { "uxterm", NULL };
 static const char *volup[] = { "pactl", "set-sink-volume", "0", "+1%",    NULL };
 static const char *voldown[] = { "pactl", "set-sink-volume", "0", "-1%",    NULL };
 static const char *volmute[] = { "pactl", "set-sink-mute",   "0", "toggle", NULL };
+static const char *micmute[] = { "thinkpad-mutemic", NULL};
 /*
  * static const char *volup[] = { "amixer", "sset", "'master'", "1dB+", NULL};
  * static const char *voldown[] = { "amixer", "sset", "'master'", "1dB-", NULL};
@@ -84,7 +87,9 @@ static const char *backlightdecr[] = {"light", "-U", light_step, NULL};
 
 //Custom Commands
 static const char *firefoxcmd[] = {"firefox",NULL};
-static const char *htopcmd[] = {"uxterm","-e","'htop && exit'", NULL};
+static const char *htopcmd[] = {"uxterm","-e","'htop&&exit'", NULL};
+static const char *shutdown[] = {"poweroff", NULL};
+static const char *shotcmd[] = {"maim","~/Screenshot/$(date +%s).png", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -97,8 +102,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	
 	//Window properties
-	{ MODKEY,                       /*XK_j*/XK_Right,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       /*XK_h*/XK_Left,      focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_Right,      focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_Left,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_o,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_k,      setmfact,       {.f = -0.05} },
@@ -112,11 +117,11 @@ static Key keys[] = {
 	{ MODKEY,             		XK_t,      killclient,     {0} },
 	
 	//Layouts
-	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_e,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY,                       XK_w,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {0} },
+	{ MODKEY,			XK_space,  togglefloating, {0} },
 	
 	//Tab Selector and Tags
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -142,12 +147,15 @@ static Key keys[] = {
 
 	//Custom Commands
 	{ MODKEY|ShiftMask,		XK_f,	   spawn,	{.v =firefoxcmd}},
-	{ MODKEY|ShiftMask,	 	XK_Launch, spawn,	{.v = htopcmd}  },
+	{ 0,			 	XK_Launch, spawn,	{.v = htopcmd}  },
+	{ MODKEY, 			XK_Launch, spawn,	{.v = shutdown}},
 	{ 0,				XK_BrightUp, spawn,	{.v = backlightincr}},
 	{ 0, 				XK_BrightDn, spawn, 	{.v = backlightdecr}},
 	{ 0,				XK_VolUp, spawn,	{.v = volup}},
 	{ 0, 				XK_VolDown, spawn, 	{.v = voldown}},
 	{ 0,				XK_VolMute, spawn,	{.v = volmute}},
+	{ 0,				XK_MicMute, spawn,	{.v = micmute}},
+	{ 0,				XK_Print, spawn,	{.v = shotcmd}},
 };
 
 /* button definitions */

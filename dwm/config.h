@@ -60,7 +60,7 @@ static const Layout layouts[] = {
 #define XK_Launch 	0x1008ff41
 #define XK_BrightUp 	0x1008ff02
 #define XK_BrightDn 	0x1008ff03
-#define XK_Print	0xff61
+/* #define XK_Print 0xff61 */
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -87,9 +87,9 @@ static const char *backlightdecr[] = {"light", "-U", light_step, NULL};
 
 //Custom Commands
 static const char *firefoxcmd[] = {"firefox",NULL};
-static const char *htopcmd[] = {"uxterm","-e","'htop&&exit'", NULL};
 static const char *shutdown[] = {"poweroff", NULL};
-static const char *shotcmd[] = {"maim","~/Screenshot/$(date +%s).png", NULL};
+static const char *reboot[] = {"reboot", NULL};
+static const char *chromiumcmd[] = {"chromium", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -108,7 +108,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_k,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	//{ MODKEY,                       XK_Return, zoom,           {0} },
 	
 	//Back to last view
 	{ MODKEY,                       XK_Tab,    view,           {0} },
@@ -147,15 +146,18 @@ static Key keys[] = {
 
 	//Custom Commands
 	{ MODKEY|ShiftMask,		XK_f,	   spawn,	{.v =firefoxcmd}},
-	{ 0,			 	XK_Launch, spawn,	{.v = htopcmd}  },
+	{ MODKEY|ShiftMask, 		XK_c,      spawn, 	{.v = chromiumcmd }},
+	{ MODKEY,			XK_r,      spawn, 	SHCMD("uxterm -e 'ranger \"$HOME\"'")},
+	{ 0,			 	XK_Launch, spawn,	SHCMD("uxterm -e 'htop && exit'")},
 	{ MODKEY, 			XK_Launch, spawn,	{.v = shutdown}},
+	{ MODKEY|ShiftMask,		XK_Launch, spawn,	{.v = reboot  }},	
 	{ 0,				XK_BrightUp, spawn,	{.v = backlightincr}},
 	{ 0, 				XK_BrightDn, spawn, 	{.v = backlightdecr}},
 	{ 0,				XK_VolUp, spawn,	{.v = volup}},
 	{ 0, 				XK_VolDown, spawn, 	{.v = voldown}},
 	{ 0,				XK_VolMute, spawn,	{.v = volmute}},
 	{ 0,				XK_MicMute, spawn,	{.v = micmute}},
-	{ 0,				XK_Print, spawn,	{.v = shotcmd}},
+	{ 0,				XK_Print, spawn,	SHCMD("maim \"$HOME/Screenshot/$(date +%s).png\"")},
 };
 
 /* button definitions */

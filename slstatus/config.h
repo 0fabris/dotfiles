@@ -65,7 +65,7 @@ static const char unknown_str[] = "n/a";
  */
 static const struct arg args[] = {
 	/* function format          argument */
-
+	{ run_command, "[fs=%s]", "cat /proc/acpi/ibm/fan | awk '{print $2}' | sed -n 2p"},
 	{ run_command, "[vol=%s]", "amixer get Master | awk -F'[][]' 'END{ print $4\":\"$2 }'"},
 	{ keymap, "[kb=%s]", NULL},
 	{ wifi_essid, "[net=%s@", "wlp3s0"},
@@ -77,3 +77,4 @@ static const struct arg args[] = {
 	{ battery_remaining, "(%s)]", "BAT0"},
 	{ datetime, "[%s]",           "%F %T" },
 };
+
